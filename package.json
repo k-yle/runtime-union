@@ -1,0 +1,34 @@
+{
+  "name": "runtime-union",
+  "version": "0.0.0",
+  "type": "module",
+  "contributors": [
+    "Kyle Hensel (https://github.com/k-yle)"
+  ],
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": "https://github.com/k-yle/runtime-union",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "trypublish": "npm publish --provenance || true"
+  },
+  "peerDependencies": {
+    "typescript": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "eslint": "^9.28.0",
+    "eslint-config-kyle": "^26.2.1",
+    "typescript": "^5.8.3"
+  },
+  "prettier": "eslint-config-kyle/prettier"
+}

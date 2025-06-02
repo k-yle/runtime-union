@@ -1,0 +1,43 @@
+name: Build and Test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+      - name: ⏬ Checkout code
+        uses: actions/checkout@v4
+
+      - name: ⏬ Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: ⏬ Install
+        run: |
+          npm install
+
+      - name: ✨ Lint
+        run: |
+          npm run lint
+
+      - name: 🔨 Build
+        run: |
+          npm run build
+
+      - name: 📦 Publish
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
+          npm run trypublish
+        env:
+          CI: true
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
